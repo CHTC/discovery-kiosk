@@ -25,7 +25,9 @@ import { siteConfig } from "@/site.config";
 export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
-	metadataBase: new URL(siteConfig.url),
+	// The bare origin, not `siteConfig.url`: Next already prefixes the base path
+	// onto file-based images like `opengraph-image.png`, and would double it.
+	metadataBase: new URL(siteConfig.origin),
 	applicationName: siteConfig.name,
 	openGraph: {
 		type: "website",
