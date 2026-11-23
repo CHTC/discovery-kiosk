@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <Container maxWidth='md' sx={{ py: 5 }}>
+    <Container maxWidth='md' sx={{ py: 5, bgcolor: 'background.default', minHeight: '100%' }}>
       <Typography variant='h2' component='h1' gutterBottom>
         404 Page Not Found
       </Typography>

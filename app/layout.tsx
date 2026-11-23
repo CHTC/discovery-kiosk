@@ -4,13 +4,10 @@ import {Box} from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import CssBaseline from '@mui/material/CssBaseline';
-import { PlayArrow } from '@mui/icons-material';
 
-import { Banner as UWBanner, Footer as UWFooter } from "@chtc/web-components"
 import { chtcTheme as theme, chtcFonts as fonts } from "@chtc/web-components/themes"
 
 import "./globals.css"
-import Header from "@/components/Header";
 import Analytics from "@/components/Analytics";
 import { siteConfig } from "@/site.config";
 
@@ -40,10 +37,6 @@ export const metadata: Metadata = {
 	},
 };
 
-const pages = [
-	{ label: 'Home Page', path: '/', icon: <PlayArrow /> },
-]
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -62,15 +55,14 @@ export default function RootLayout({
         */}
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Box component={"body"} sx={{ margin: 0, padding: 0, bgcolor: 'background.default', color: 'text.primary', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-            <UWBanner />
-						<Header title={siteConfig.name} pages={pages} />
-						<Box component="main" sx={{ flexGrow: 1 }}>
-							{children}
-						</Box>
-            <UWFooter
-                accessibilityEmail={siteConfig.email}
-            />
+          {/*
+            Full-screen signage: no banner, header or footer, and nothing may
+            scroll. The kiosk page draws its own fixed 1080p stage.
+          */}
+          <Box component={"body"} sx={{ margin: 0, padding: 0, bgcolor: '#000', color: 'text.primary', height: '100vh', overflow: 'hidden' }}>
+            <Box component="main" sx={{ height: '100%' }}>
+              {children}
+            </Box>
           </Box>
         </ThemeProvider>
       </AppRouterCacheProvider>

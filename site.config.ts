@@ -10,9 +10,9 @@
  * `undefined` for {@link siteConfig.url}.
  */
 export const siteConfig = {
-  name: 'Website Template',
-  shortName: 'Template',
-  description: 'Website template for CHTC projects',
+  name: 'CHTC Discovery Kiosk',
+  shortName: 'CHTC Kiosk',
+  description: 'Rotating display of upcoming CHTC events and news for the CHTC kiosk',
   locale: 'en_US',
   /**
    * The site-wide share image.

@@ -1,15 +1,55 @@
-# NextJS Static Website Template
+# CHTC Discovery Kiosk
 
-Fully functional website template using Next.js for use by the CHTC.
+A full-screen rotating display for the CHTC kiosk TV. Open the site and it
+cycles through slides on its own, one every 10 seconds, with a randomly chosen
+transition between each.
 
-Provides a basic structure for building static websites with Next.js with a couple nice to haves:
+## Documentation
 
-- Solves rehydration errors when using Material UI with Next.js.
-- Theming integration with Material UI and CHTC Web Components.
-- Setting up CI/CD with GitHub Actions to deploy to GitHub Pages or other static hosting.
-- Starting points for sitemap, robots.txt, SEO Metadata, and Analytics.
+- [How to add and remove slides](docs/how-to-add-slides.md): images, events and articles
+- [How to preview and publish changes](docs/how-to-preview-and-publish.md)
+- [How to change how slides look](docs/how-to-edit-slide-designs.md)
+- [How to add a transition](docs/how-to-add-a-transition.md)
+- [Kiosk settings reference](docs/settings-reference.md): every setting, its default and where it lives
 
-Please raise any issues with this template in an issue on the repository!
+## What it shows
+
+- **Upcoming CHTC events** from [CHTC/Events](https://github.com/CHTC/Events).
+- **The most recent CHTC news and user-story articles** that have a card image,
+  from [CHTC/Articles](https://github.com/CHTC/Articles). Five by default.
+- **Any images in `public/slides/`.**
+
+An event plays before every article or image, so events are always in
+rotation.
+
+## How it stays current
+
+The site is a static export. `.github/workflows/nextjs.yml` builds and deploys
+it on every push to `main` and three times a day. The page reloads itself once
+an hour to load the latest deploy. Events drop out the day after they end,
+going by the kiosk's own clock, even if the build is older.
+
+## Display and controls
+
+Slides are drawn on a fixed 1920×1080 canvas that is scaled to fit the window,
+so they look the same on the 1080p TV as in a browser preview. Run the browser
+full screen or in kiosk mode, for example `chromium --kiosk <url>`.
+
+Press the **right arrow** for the next slide and the **left arrow** for the
+previous one. Either key restarts the 10-second timer.
+
+## Transitions
+
+One is picked at random for each slide change, never the same one twice in a
+row:
+
+- **RedSweep**: an angled CHTC-red panel wipes across and paints the next slide on behind it.
+- **JobGrid**: a 16×9 grid of red and black "jobs" cascades in to cover the screen, then drains away to show the next slide.
+- **Aperture**: the next slide opens from the center inside an expanding red ring while the old one recedes.
+- **LogoStorm**: a hurricane of CHTC logos whips around the center over a spinning red-and-black vortex, then flings outward to reveal the next slide.
+- **LogoSpin**: a single CHTC logo spins about its vertical axis, growing to fill the screen and then shrinking away.
+
+Viewers whose system is set to reduce motion get an instant cut instead.
 
 # NPM Stack
 

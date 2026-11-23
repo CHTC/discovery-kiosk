@@ -1,13 +1,13 @@
-import { Box, Typography, Container } from "@mui/material";
+import { getSlides } from "@/lib/getSlides";
 
+import KioskView from "./view";
+
+/**
+ * The kiosk. Slides are gathered at build time — upcoming CHTC events, recent
+ * CHTC articles and the images in `public/slides/` — and rotated in the
+ * browser by {@link KioskView}.
+ */
 export default async function Home() {
-  return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
-      <Container maxWidth="md" sx={{ mt: 8 }}>
-        <Typography variant="h4" component="h2" gutterBottom>
-          Hello World!
-        </Typography>
-      </Container>
-    </Box>
-  );
+  const slides = await getSlides();
+  return <KioskView slides={slides} />;
 }
