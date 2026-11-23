@@ -1,8 +1,8 @@
 # CHTC Discovery Kiosk
 
-A full-screen rotating display for the CHTC kiosk TV. Open the site and it
-cycles through slides on its own, one every 10 seconds, with a randomly chosen
-transition between each.
+A full-screen rotating display for the CHTC kiosk TV. Open
+https://chtc.github.io/discovery-kiosk/ and it cycles through slides on its
+own, one a minute by default, with a randomly chosen transition between each.
 
 ## Documentation
 
@@ -16,7 +16,7 @@ transition between each.
 
 - **Upcoming CHTC events** from [CHTC/Events](https://github.com/CHTC/Events).
 - **The most recent CHTC news and user-story articles** that have a card image,
-  from [CHTC/Articles](https://github.com/CHTC/Articles). Five by default.
+  from [CHTC/Articles](https://github.com/CHTC/Articles). Ten, as currently configured.
 - **Any images in `public/slides/`.**
 
 An event plays before every article or image, so events are always in
@@ -36,7 +36,7 @@ so they look the same on the 1080p TV as in a browser preview. Run the browser
 full screen or in kiosk mode, for example `chromium --kiosk <url>`.
 
 Press the **right arrow** for the next slide and the **left arrow** for the
-previous one. Either key restarts the 10-second timer.
+previous one. Either key restarts the slide timer.
 
 ## Transitions
 
@@ -120,7 +120,7 @@ The pnpm version is pinned by the `packageManager` field in `package.json`; CI a
 
 [Unlighthouse](https://unlighthouse.dev/) runs Lighthouse against every page in the sitemap.
 
-Set the production URL in `unlighthouse.config.ts`, then run `pnpm run unlighthouse:live`.
+The production URL is already set in `unlighthouse.config.ts`; run `pnpm run unlighthouse:live`.
 
-To scan a local build instead, serve it with `npx serve out -l 3000` and run `UNLIGHTHOUSE_SITE=http://localhost:3000 pnpm run unlighthouse:live`.
+To scan a local build instead, serve it as described in [How to preview and publish changes](docs/how-to-preview-and-publish.md#check-the-production-build) and run `UNLIGHTHOUSE_SITE=http://localhost:3000/discovery-kiosk/ pnpm run unlighthouse:live`.
 

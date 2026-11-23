@@ -73,6 +73,11 @@ CHTC/Articles, because the kiosk always takes the newest ones that qualify.
 Changing an article affects the CHTC website too, so check with whoever owns it
 first.
 
+## Change how long each slide stays up
+
+Set `slideSeconds` in `kiosk.config.ts`. The default is `60`, and the minimum
+is `5`. Every slide gets the same time.
+
 ## How slides are ordered
 
 An event plays before every article or image. When there are fewer events than

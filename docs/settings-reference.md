@@ -6,13 +6,13 @@ Every setting takes effect on the next build.
 
 | Setting | Default | Description |
 |---|---|---|
-| `articleCount` | `5` | Number of recent CHTC articles in the rotation. `0` shows none. Decimals round down; negative or non-numeric values count as `0`. |
+| `articleCount` | `10` | Number of recent CHTC articles in the rotation. `0` shows none. Decimals round down; negative or non-numeric values count as `0`. |
+| `slideSeconds` | `60` | Seconds each slide stays on screen, including its transition. Values under `5` become `5`; non-numeric values fall back to `60`. |
 
 ## `lib/kiosk.ts`
 
 | Setting | Default | Description |
 |---|---|---|
-| `SLIDE_DURATION_MS` | `10_000` | Milliseconds each slide stays up, including its transition. |
 | `RELOAD_INTERVAL_MS` | `3_600_000` (1 hour) | The page reloads itself, between slides, after this many milliseconds. Reloading picks up the latest deploy. |
 | `SLIDE_IMAGE_DIR` | `"slides"` | Folder under `public/` whose images join the rotation. |
 | `SLIDE_IMAGE_EXTENSIONS` | `.jpg` `.jpeg` `.png` `.webp` `.gif` `.avif` `.svg` | File types picked up from that folder. |
@@ -45,7 +45,8 @@ its file in `components/Transitions/`.
 | Variable | Description |
 |---|---|
 | `GITHUB_TOKEN` | Optional. Raises GitHub's limit from 60 to 5,000 requests an hour. The deploy workflow sets it automatically. |
-| `NEXT_PUBLIC_BASE_PATH` | URL prefix when the site isn't served from the root of its domain, for example `/kiosk`. |
+| `HOSTNAME` | Host the site is published on. `chtc.github.io` in `.env.production`; `localhost` in `.env`. Used for the sitemap, `robots.txt` and share-image links. |
+| `NEXT_PUBLIC_BASE_PATH` | Folder the site lives in. `/discovery-kiosk` in `.env.production`, used by `pnpm build`; empty in `.env`, so `pnpm dev` serves from the root. Must match `BASE_PATH` in the `link-check` job of `.github/workflows/nextjs.yml`. |
 
 ## Build schedule
 

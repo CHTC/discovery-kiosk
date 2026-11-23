@@ -85,8 +85,8 @@ For brand colors and the logo path, import `BRAND` and `BASE_PATH` from
    export const TRANSITIONS: readonly KioskTransition[] = [fade];
    ```
 
-2. Start the preview with `pnpm dev`, open http://localhost:3000 and press the
-   right arrow key to run the transition.
+2. Start the preview with `pnpm dev`, open http://localhost:3000 and press the right
+   arrow key to run the transition.
 3. To study it frame by frame, temporarily raise `DURATION_MS` in your file,
    for example to `10_000`.
 4. Restore the full `TRANSITIONS` list and `DURATION_MS` when you're done.

@@ -32,7 +32,8 @@ export const siteConfig = {
   },
   /**
    * Path the site is served under, e.g. `/discovery-kiosk` for
-   * https://chtc.github.io/discovery-kiosk/. Empty when served from the root.
+   * https://chtc.github.io/discovery-kiosk/. Set in `.env.production` for
+   * builds; empty in development, which serves from the root.
    */
   basePath: process.env.NEXT_PUBLIC_BASE_PATH ?? '',
   /** Scheme and host only, e.g. `https://chtc.github.io`. Set per deployment. */

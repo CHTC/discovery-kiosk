@@ -18,6 +18,18 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 
 const OUT_DIR = path.resolve(ROOT, process.argv[2] || 'out');
+
+// This runs as its own process after `next build`, so it doesn't inherit the
+// env files Next loaded. Load the same production ones, highest precedence
+// first: `process.loadEnvFile` never overwrites a variable that's already set.
+for (const file of ['.env.production.local', '.env.local', '.env.production', '.env']) {
+  try {
+    process.loadEnvFile(path.join(ROOT, file));
+  } catch {
+    // File doesn't exist.
+  }
+}
+
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 /** @typedef {{ source: string, destination: string, text?: string }} Redirect */

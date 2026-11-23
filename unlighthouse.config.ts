@@ -1,6 +1,8 @@
-// Set SITE to the production URL. To scan a local build, serve it
-// (`npx serve out -l 3000`) and set UNLIGHTHOUSE_SITE=http://localhost:3000.
-const SITE = process.env.UNLIGHTHOUSE_SITE ?? 'https://example.com'
+// The production URL. To scan a local build, serve it as described in
+// docs/how-to-preview-and-publish.md and set
+// UNLIGHTHOUSE_SITE=http://localhost:3000/discovery-kiosk/. Keep the trailing
+// slash: the sitemap is looked up relative to it.
+const SITE = process.env.UNLIGHTHOUSE_SITE ?? 'https://chtc.github.io/discovery-kiosk/'
 
 /**
  * The path of a sitemap `<loc>`. A sitemap built with a `HOSTNAME` that
@@ -20,7 +22,8 @@ async function fetchLocs(path: string): Promise<string[]> {
 // next-sitemap writes absolute URLs for the production host, so read the
 // sitemaps from SITE ourselves and keep only each entry's path.
 async function sitemapPaths(): Promise<string[]> {
-	const sitemaps = await fetchLocs('/sitemap.xml')
+	// Relative, so it resolves under the base path rather than the domain root.
+	const sitemaps = await fetchLocs('sitemap.xml')
 	const locs = (await Promise.all(sitemaps.map((loc) => fetchLocs(locPath(loc))))).flat()
 	const paths = locs
 		.map(locPath)

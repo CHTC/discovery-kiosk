@@ -8,8 +8,17 @@ import { kioskConfig } from "@/kiosk.config";
 export const STAGE_WIDTH = 1920;
 export const STAGE_HEIGHT = 1080;
 
-/** How long each slide stays up, from the start of one transition to the next. */
-export const SLIDE_DURATION_MS = 10_000;
+/** Default and floor for `slideSeconds`; the floor outlasts the longest transition. */
+const DEFAULT_SLIDE_SECONDS = 60;
+const MIN_SLIDE_SECONDS = 5;
+
+/**
+ * How long each slide stays up, from the start of one transition to the next.
+ * Set as `slideSeconds` in `kiosk.config.ts`; values that aren't a number
+ * fall back to 60 seconds, and anything under 5 seconds becomes 5.
+ */
+export const SLIDE_DURATION_MS =
+  Math.max(MIN_SLIDE_SECONDS, Number(kioskConfig.slideSeconds) || DEFAULT_SLIDE_SECONDS) * 1000;
 
 /**
  * Number of recent CHTC news / user articles mixed into the rotation. Set in

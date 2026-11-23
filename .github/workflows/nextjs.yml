@@ -95,8 +95,8 @@ jobs:
   # rate-limit often enough that checking them would fail PRs for nothing.
   # Those are external-links.yml's job.
   #
-  # Root-relative links resolve against the root of the export, so this
-  # assumes NEXT_PUBLIC_BASE_PATH is empty.
+  # Root-relative links include the base path (/discovery-kiosk/...), so the
+  # export is unpacked into a folder of that name, the way Pages serves it.
   link-check:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
@@ -105,6 +105,8 @@ jobs:
       contents: read
     env:
       SITE_ROOT: ${{ github.workspace }}/_site
+      # Must match NEXT_PUBLIC_BASE_PATH in .env.production.
+      BASE_PATH: /discovery-kiosk
     steps:
       - name: Download built site
         uses: actions/download-artifact@v5
@@ -112,8 +114,8 @@ jobs:
           name: github-pages
       - name: Extract built site
         run: |
-          mkdir -p "$SITE_ROOT"
-          tar -xf artifact.tar -C "$SITE_ROOT"
+          mkdir -p "$SITE_ROOT$BASE_PATH"
+          tar -xf artifact.tar -C "$SITE_ROOT$BASE_PATH"
       # The org's other GitHub Pages repositories are served as project sites
       # under the same host (/docs/, /security/, ...), so root-relative links
       # into them are valid but absent from this build. Those are excluded by

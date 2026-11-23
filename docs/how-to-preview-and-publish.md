@@ -34,20 +34,22 @@ Use the right and left arrow keys to jump between slides instead of waiting.
 
 ## Check the production build
 
-The kiosk runs the static build, not the development server. To check it
-before you push:
+The kiosk runs the static build, not the development server. Unlike the
+development server, the build lives under `/discovery-kiosk/`, as it will on
+GitHub Pages. Copy it into a folder of that name before serving it:
 
 ```shell
 pnpm build
-npx serve out
+rm -rf .preview && mkdir .preview && cp -R out .preview/discovery-kiosk
+npx serve .preview
 ```
 
-Then open the address that `serve` prints.
+Then open http://localhost:3000/discovery-kiosk/.
 
 ## Publish to the kiosk
 
 Push your commit to `main`. The **Deploy Next.js site to Pages** workflow
-builds and deploys the site.
+builds the site and deploys it to https://chtc.github.io/discovery-kiosk/.
 
 The kiosk reloads itself once an hour, so your change appears within an hour
 of the deploy finishing. To see it right away, reload the kiosk's browser.
@@ -62,3 +64,16 @@ picks up new events and articles. To pick them up sooner:
 3. Select **Run workflow** on the `main` branch.
 
 To change the schedule, edit the `cron` line in `.github/workflows/nextjs.yml`.
+
+## Move the site to a different address
+
+The published address is set in `.env.production`, which only the build reads.
+The development server ignores it and always serves from the root.
+
+| Variable | Current value | Meaning |
+|---|---|---|
+| `HOSTNAME` | `chtc.github.io` | Host the site is published on. |
+| `NEXT_PUBLIC_BASE_PATH` | `/discovery-kiosk` | Folder the site lives in on that host. Use an empty value for the root of a domain. |
+
+If you change `NEXT_PUBLIC_BASE_PATH`, also change `BASE_PATH` in the
+`link-check` job of `.github/workflows/nextjs.yml` to match.
