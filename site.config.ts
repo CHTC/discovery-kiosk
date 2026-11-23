@@ -23,13 +23,25 @@ export const siteConfig = {
    * rather than merging it — this is that same file.
    */
   shareImage: {
-    url: '/opengraph-image.jpg',
+    // Resolved against `metadataBase`, which is the bare origin, so the base
+    // path has to be included here.
+    url: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/opengraph-image.jpg`,
     width: 1203,
     height: 630,
     alt: 'Center for High Throughput Computing — UW-Madison',
   },
-  /** Set per deployment; the sitemap and robots.txt need it absolute. */
-  url: process.env.HOSTNAME ? `https://${process.env.HOSTNAME}` : 'https://example.com',
+  /**
+   * Path the site is served under, e.g. `/discovery-kiosk` for
+   * https://chtc.github.io/discovery-kiosk/. Empty when served from the root.
+   */
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH ?? '',
+  /** Scheme and host only, e.g. `https://chtc.github.io`. Set per deployment. */
+  origin: process.env.HOSTNAME ? `https://${process.env.HOSTNAME}` : 'https://example.com',
+  /**
+   * Absolute URL of the site's root, base path included and no trailing
+   * slash. The sitemap and robots.txt need it absolute.
+   */
+  url: `${process.env.HOSTNAME ? `https://${process.env.HOSTNAME}` : 'https://example.com'}${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}`,
   /** Contact address for the 404 page and the footer's accessibility link. */
   email: 'chtc@wisc.edu',
 } as const;

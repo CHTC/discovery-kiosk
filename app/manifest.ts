@@ -15,13 +15,14 @@ export default function manifest(): MetadataRoute.Manifest {
     name: siteConfig.name,
     short_name: siteConfig.shortName,
     description: siteConfig.description,
-    start_url: '/',
+    // A manifest's URLs aren't rewritten for basePath, so prefix them here.
+    start_url: `${siteConfig.basePath}/`,
     display: 'browser',
     background_color: '#ffffff',
     theme_color: '#B61F24',
     icons: [
       {
-        src: '/logos/chtc.svg',
+        src: `${siteConfig.basePath}/logos/chtc.svg`,
         type: 'image/svg+xml',
         sizes: 'any',
         purpose: 'any',
